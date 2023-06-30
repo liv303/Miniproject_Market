@@ -2,16 +2,17 @@ package com.example.Miniproject_Market.controller;
 
 import com.example.Miniproject_Market.dto.itemCreateDto;
 import com.example.Miniproject_Market.dto.itemDto;
+import com.example.Miniproject_Market.dto.responseDto;
 import com.example.Miniproject_Market.service.saleService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
+import java.util.List;
+
+@Slf4j
 @RestController // @ResponseBody 포함
 @RequestMapping("/items")
 @RequiredArgsConstructor
@@ -20,21 +21,22 @@ public class saleController {
 
     // POST /items
     @PostMapping
-    public itemCreateDto create(@RequestBody itemCreateDto dto){
-        return service.createSale(dto);
+    public responseDto create(@RequestBody itemCreateDto dto) { // AOP. 부가 기능(메시지 반환) 추가
+        responseDto response = new responseDto();
+        response.setMessage("등록이 완료되었습니다.");
+        return response;
     }
-
-    // TODO GET /items?page={page}&limit={limit}
-
+//    public itemCreateDto create(@RequestBody itemCreateDto dto){ return service.createSale(dto);}
 
 
-
-
-    // GET /items
+    // GET /items?page={page}&limit={limit}
     @GetMapping
-    public List<itemDto> readAll() {
-        return service.readSaleAll();
+    public Page<itemDto> readPage(
+            @RequestParam(value = "page", defaultValue = "1") Integer pageNumber,
+            @RequestParam(value = "limit", defaultValue = "5") Integer pageSize) {
+        return service.readPage(pageNumber, pageSize);
     }
+
 
     // GET /items/{itemId}
     @GetMapping("/{id}")
@@ -44,20 +46,41 @@ public class saleController {
 
     // PUT /items/{itemId}
     @PutMapping("/{id}")
-    public itemDto update(@PathVariable("id") Long id, @RequestBody itemDto dto) {
-        return service.updateSale(id, dto);
+    public responseDto update(@PathVariable("id") Long id, @RequestBody itemDto dto) {
+        // 판매 페이지 수정
+        service.updateSale(id, dto);
+        // 메시지
+        responseDto response = new responseDto();
+        response.setMessage("물품이 수정되었습니다.");
+        return response;
     }
+//    public itemDto update(@PathVariable("id") Long id, @RequestBody itemDto dto) { return service.updateSale(id, dto);}
 
-    // TODO PUT /items/{itemId}/image
+    // PUT /items/{itemId}/image
+    @PutMapping("/{id}/image")
+    public responseDto createImage(@PathVariable("id") Long id) {
+        // TODO 이미지 추가
 
+
+        // 메시지
+        responseDto response = new responseDto();
+        response.setMessage("이미지가 등록되었습니다.");
+        return response;
+    }
 
 
 
 
     // DELETE /items/{itemId}
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public responseDto delete(@PathVariable("id") Long id) {
+        // 판매 게시글 삭제
         service.deleteSale(id);
+        // 메시지
+        responseDto response = new responseDto();
+        response.setMessage("물품을 삭제했습니다.");
+        return response;
     }
+//    public void delete(@PathVariable("id") Long id) { service.deleteSale(id); }
 }
 
