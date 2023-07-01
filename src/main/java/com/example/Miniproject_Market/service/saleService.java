@@ -4,6 +4,7 @@ import com.example.Miniproject_Market.Entity.itemEntity;
 import com.example.Miniproject_Market.dto.itemCreateDto;
 import com.example.Miniproject_Market.dto.itemDto;
 import com.example.Miniproject_Market.dto.itemReadDto;
+import com.example.Miniproject_Market.dto.itemUpdateDto;
 import com.example.Miniproject_Market.repository.itemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -41,7 +42,7 @@ public class saleService {
 
     public List<itemDto> readSaleAll() {
         List<itemDto> itemList = new ArrayList<>();
-        for (itemEntity entity: itemRepository.findAll()) {
+        for (itemEntity entity : itemRepository.findAll()) {
             itemList.add(itemDto.fromEntity(entity));
         }
         return itemList;
@@ -53,7 +54,7 @@ public class saleService {
         // Page<Entity> 순회
         Page<itemEntity> itemEntityPage = itemRepository.findAll(pageable); // findAll 호출 시 Pageable 전달
         List<itemReadDto> itemReadDtoList = new ArrayList<>();
-        for (itemEntity entity: itemEntityPage) {
+        for (itemEntity entity : itemEntityPage) {
             itemReadDtoList.add(itemReadDto.readEntity(entity));
         }
         return itemEntityPage.map(itemReadDto::readEntity); // Page(Entity>를 Page<Dto>로
@@ -61,25 +62,29 @@ public class saleService {
     }
 
 
-    public itemDto updateSale(Long id, itemDto dto) {
-        // TODO 비밀번호 확인 필수
+    public itemUpdateDto updateSale(Long id, itemUpdateDto dto) {
         Optional<itemEntity> optionalItem = itemRepository.findById(id);
         if (optionalItem.isPresent()) {
             itemEntity item = optionalItem.get();
-            item.setTitle(dto.getTitle());
-            item.setDescription(dto.getDescription());
-            item.setMinPriceWanted(dto.getMinPriceWanted());
-            item.setWriter(dto.getWriter());
-            return itemDto.fromEntity(itemRepository.save(item));
+            // 게시글 수정시 비밀번호 확인 필수
+            if (item.getPassword().equals(dto.getPassword())) {
+                item.setTitle(dto.getTitle());
+                item.setDescription(dto.getDescription());
+                item.setMinPriceWanted(dto.getMinPriceWanted());
+                item.setWriter(dto.getWriter());
+                return itemUpdateDto.updateEntity(itemRepository.save(item));
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     public void deleteSale(Long id) {
         if (itemRepository.existsById(id)) {
             itemRepository.deleteById(id);
-        }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
 

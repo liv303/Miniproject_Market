@@ -1,10 +1,7 @@
 package com.example.Miniproject_Market.controller;
 
 import com.example.Miniproject_Market.Entity.itemEntity;
-import com.example.Miniproject_Market.dto.itemCreateDto;
-import com.example.Miniproject_Market.dto.itemDto;
-import com.example.Miniproject_Market.dto.itemReadDto;
-import com.example.Miniproject_Market.dto.responseDto;
+import com.example.Miniproject_Market.dto.*;
 import com.example.Miniproject_Market.repository.itemRepository;
 import com.example.Miniproject_Market.service.saleService;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +55,7 @@ public class saleController {
 
     // PUT /items/{itemId}
     @PutMapping("/{id}")
-    public responseDto update(@PathVariable("id") Long id, @RequestBody itemDto dto) {
+    public responseDto update(@PathVariable("id") Long id, @RequestBody itemUpdateDto dto) {
         // 판매 페이지 수정
         service.updateSale(id, dto);
         // 메시지
