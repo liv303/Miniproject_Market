@@ -12,7 +12,7 @@ public class itemCreateDto {
     private String writer;
     private String password;
 
-    public static itemCreateDto fromEntity(itemEntity entity) {
+    public static itemCreateDto createEntity(itemEntity entity) {
         itemCreateDto itemCreateDto = new itemCreateDto();
         itemCreateDto.setId(entity.getId());
         itemCreateDto.setDescription(entity.getDescription());
