@@ -20,8 +20,9 @@ public class itemEntity {
     private String image_url;
     @Column
     private Integer minPriceWanted;
-    @ColumnDefault("판매중")
-    private String status;
+//    @ColumnDefault("판매중")   // jpa.hiberanate.ddl-auto;create-drop일 때만 적용됨
+    @Column
+    private String status = "판매중";
     @Column(nullable = false, length = 20)
     private String writer;
     @Column(nullable = false)
