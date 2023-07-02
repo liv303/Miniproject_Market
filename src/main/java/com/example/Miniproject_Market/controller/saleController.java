@@ -1,18 +1,13 @@
 package com.example.Miniproject_Market.controller;
 
-import com.example.Miniproject_Market.Entity.itemEntity;
 import com.example.Miniproject_Market.dto.*;
-import com.example.Miniproject_Market.repository.itemRepository;
 import com.example.Miniproject_Market.service.saleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -33,7 +28,6 @@ public class saleController {
         return response;
     }
 //    public itemCreateDto create(@RequestBody itemCreateDto dto){ return service.createSale(dto);}
-
 
 
     // GET /items/{itemId}
@@ -78,13 +72,11 @@ public class saleController {
     }
 
 
-
-
     // DELETE /items/{itemId}
     @DeleteMapping("/{id}")
-    public responseDto delete(@PathVariable("id") Long id) {
+    public responseDto delete(@PathVariable("id") Long id, @RequestBody itemDeleteDto dto) {
         // 판매 게시글 삭제
-        service.deleteSale(id);
+        service.deleteSale(id, dto);
         // 메시지
         responseDto response = new responseDto();
         response.setMessage("물품을 삭제했습니다.");

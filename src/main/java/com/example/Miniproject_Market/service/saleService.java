@@ -1,10 +1,7 @@
 package com.example.Miniproject_Market.service;
 
 import com.example.Miniproject_Market.Entity.itemEntity;
-import com.example.Miniproject_Market.dto.itemCreateDto;
-import com.example.Miniproject_Market.dto.itemDto;
-import com.example.Miniproject_Market.dto.itemReadDto;
-import com.example.Miniproject_Market.dto.itemUpdateDto;
+import com.example.Miniproject_Market.dto.*;
 import com.example.Miniproject_Market.repository.itemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -81,10 +78,19 @@ public class saleService {
         }
     }
 
-    public void deleteSale(Long id) {
+    public void deleteSale(Long id, itemDeleteDto dto) {
         if (itemRepository.existsById(id)) {
-            itemRepository.deleteById(id);
-        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            Optional<itemEntity> optionalItem = itemRepository.findById(id);
+            itemEntity item = optionalItem.get();
+            // 게시글 삭제시 비밀번호 확인 필수
+            if (item.getPassword().equals(dto.getPassword())) {
+                itemRepository.deleteById(id);
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
 
