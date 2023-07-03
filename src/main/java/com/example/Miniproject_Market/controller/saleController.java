@@ -1,21 +1,18 @@
 package com.example.Miniproject_Market.controller;
 
 import com.example.Miniproject_Market.dto.*;
-import com.example.Miniproject_Market.service.saleService;
+import com.example.Miniproject_Market.service.salesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
 
 @Slf4j
 @RestController // @ResponseBody 포함
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class saleController {
-    private final saleService service;
+    private final salesService service;
 
     // POST /items
     @PostMapping

@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class saleService {
+public class salesService {
     private final itemRepository itemRepository;
 
     public itemCreateDto createSale(itemCreateDto dto) {
@@ -37,10 +37,10 @@ public class saleService {
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    public List<itemDto> readSaleAll() {
-        List<itemDto> itemList = new ArrayList<>();
+    public List<itemReadDto> readSaleAll() {
+        List<itemReadDto> itemList = new ArrayList<>();
         for (itemEntity entity : itemRepository.findAll()) {
-            itemList.add(itemDto.fromEntity(entity));
+            itemList.add(itemReadDto.readEntity(entity));
         }
         return itemList;
     }
