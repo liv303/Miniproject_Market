@@ -6,6 +6,8 @@ import com.example.Miniproject_Market.service.commentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController // @ResponseBody 포함
 @RequestMapping("/items")
 @RequiredArgsConstructor
@@ -25,7 +27,8 @@ public class commentController {
 
     // GET /items/{itemId}/comments
     @GetMapping("{itemId}/comments")
-    public void read() {
+    public List<commentDto> read(@PathVariable("itemId") Long itemId) {
+        return service.readCommentAll(itemId);
     }
 
     // PUT /items/{itemId}/comments/{commentId}

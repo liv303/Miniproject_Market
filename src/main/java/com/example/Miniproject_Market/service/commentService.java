@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.yaml.snakeyaml.events.CommentEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +28,16 @@ public class commentService {
         newComment.setContent(dto.getContent());
         newComment.setReply(dto.getReply());
         return commentDto.fromCommentEntity(commentRepository.save(newComment));
+    }
+
+    // 특정 판매글의 댓글 전체 조회
+    public List<commentDto> readCommentAll(Long itemId) {
+        List<commentEntity> commentEntities = commentRepository.findAllByItemId(itemId);
+        List<commentDto> commentList = new ArrayList<>();
+        for (commentEntity entity: commentEntities) {
+            commentList.add(commentDto.fromCommentEntity(entity));
+        }
+        return commentList;
     }
 
 
