@@ -40,6 +40,22 @@ public class commentService {
         return commentList;
     }
 
+    // 수정
+    public commentDto updateCommet(Long itemId, Long commentId, commentDto dto) {
+        // 1) commentId가 맞는 코멘트가 있는지 확인
+        Optional<commentEntity> optionalComment = commentRepository.findById(commentId);
+            // 댓글이 존재하지 않으면 예외 발생
+        if (optionalComment.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            // 존재하면 계속 진행
+        commentEntity comment = optionalComment.get();
+
+        // 2) itemId가 동일한지 확인
+        if (!itemId.equals(comment.getItemId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        // 수정
+        comment.setContent(dto.getContent());
+        return commentDto.fromCommentEntity(commentRepository.save(comment));
+    }
 
     // 삭제
     public void deleteComment(Long itemId, Long commentId) {
@@ -54,4 +70,5 @@ public class commentService {
         // 삭제
         commentRepository.deleteById(commentId);
     }
+
 }
