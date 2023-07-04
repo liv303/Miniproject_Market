@@ -67,8 +67,20 @@ public class negoService {
 
     // 제안 삭제
     // DELETE /items/{itemId}/proposals/{proposalId}
-    public void deleteNego(Long itemId, Long proposalId) {
+    public void deleteNego(Long proposalId, String writer, String password) {
+//        // 제안글이 존재하는지 확인
+        Optional<negoEntity> optionalNegoEntity = negoRepository.findById(proposalId);
+        if (optionalNegoEntity.isEmpty()){ throw new ResponseStatusException(HttpStatus.NOT_FOUND); }
+
+        negoEntity negoEntity = optionalNegoEntity.get();   // 옵셔널 객체 가져옴
+        // 작성자가 맞는지 확인(작성자, 비밀번호)
+        if (writer.equals(negoEntity.getWriter())
+                && password.equals(negoEntity.getPassword())
+        ) {
+            // 작성자가 맞다면 삭제
+            negoRepository.deleteById(proposalId);
+        }
+        // 작성자가 아니라면 예외 발생
+        else throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
-
-
 }

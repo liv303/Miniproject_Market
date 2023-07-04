@@ -18,6 +18,16 @@ MiniProject_Basic_Leesiyun
    - 여러 개의 판매 게시글을 전체 조회하거나 페이지 단위로 조회할 수 있습니다.
    - 판매 게시글을 등록할 때 지정한 비밀번호로 판매글을 수정 및 삭제할 수 있습니다.
 
+- 댓글 생성/조회/수정/삭제
+  - 판매 게시글에 댓글을 생성할 수 있습니다.
+  - 판매 게시글을 전체 조회할 수 있습니다.
+  - 판매 게시글을 등록할 때 지정한 비밀번호로 판매글을 수정 및 삭제할 수 있습니다.
+
+- 거래 제안 등록/조회/삭제
+    - 제안을 최초 등록시 자동으로 "제안" 상태가 됩니다.
+    - 판매글 작성자(작성자명, 비밀번호 일치)는 해당 판매글에 달린 제안 목록을 조회할 수 있습니다.
+    - 제안을 등록할 때 입력한 비밀번호로 제안을 삭제할 수 있습니다.
+
 ----------------------------------
 ### Document
 - 판매 게시글에 관한 기능은 'item' 또는 'Sale'을 사용하여 네이밍하였습니다.
@@ -29,27 +39,41 @@ MiniProject_Basic_Leesiyun
 1. Controller
    - SaleController : 판매 게시글 생성/조회/수정/삭제에 관한 요청과 응답
    - commentController : 댓글 생성/조회/수정/삭제에 관한 요청과 응답
+   - negoController : 거래 제안 등록/조회/수정/삭제에 관한 요청과 응답
 2. Dto
-   - itemCreateDto : 판매 게시글 생성에 관한 Dto
-   - itemUpdateDto : 판매 게시글 수정에 관한 Dto
-   - itemDeleteDto : 판매 게시글 삭제에 관한 Dto
+   - itemDto
+      - itemCreateDto : 판매 게시글 생성에 관한 Dto
+      - itemUpdateDto : 판매 게시글 수정에 관한 Dto
+      - itemDeleteDto : 판매 게시글 삭제에 관한 Dto
+   - commentDto
+     - commentDto : 댓글 관련 기능에 관한 Dto
+     - commentReadDto : 댓글 조회 기능에 관한 Dto
+   - negoDto : 거래 제안 관련 기능에 관한 Dto
    - responseDto : 응답 메시지에 관한 Dto
-   - commentDto : 댓글 관련 기능에 관한 Dto
+     
 3. Entity
    - itemEntity : items 테이블을 구성하는 물품에 대한 기본 정보
    - commentEntity : comments 테이블의 기본 정보
+   - negoEntity : negotiation 테이블의 기본 정보
 4. Repository
    - itemRepository : JpaRepository를 상속 받은 레포지토리이며,
  items 테이블을 활용할 수 있도록 인터페이스를 제공
    - commentRepository : JpaRepository를 상속 받은 레포지토리이며,
  comments 테이블을 활용할 수 있도록 인터페이스를 제공
-   - 
+   - negoRepository : JpaRepository를 상속 받은 레포지토리이며,
+ negotiation 테이블을 활용할 수 있도록 인터페이스를 제공
 5. Service
    - salesService: 판매 게시글 생성/조회/수정/삭제에 관한 로직
    - commentService : 댓글 생성/조회/수정/삭제에 관한 로직
+   - negoService : 거래 제안 생성/조회/수정/삭제에 관한 로직
 
 ----------------------------------
 ### Update
+ 
+2023/07/04
+- 추가: 물품 거래 제안 등록/조회/삭제 기능 구현
+- 리팩토링: 판매/댓글/제안 기능별로 Dto 분리
+
 2023/07/03
 - 추가: 댓글(코멘트) 생성/삭제 기능 구현
 

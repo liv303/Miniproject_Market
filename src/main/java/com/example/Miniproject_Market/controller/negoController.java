@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -51,21 +52,25 @@ public class negoController {
 
     // 제안 수락/거절
     // PUT /items/{itemId}/proposals/{proposalId}
-
+    public void status() {
+    }
 
     // 제안 확정
     // PUT /items/{itemId}/proposals/{proposalId}
-
+    public void acceptProposal() {
+    }
 
     // 제안 삭제
     // DELETE /items/{itemId}/proposals/{proposalId}
     @DeleteMapping("/proposals/{proposalId}")
-    public responseDto delete(@PathVariable("itemId") Long itemId, @PathVariable("proposalId") Long proposalId,
-                              @RequestBody HashMap<String, Object> map) {
-        // 작성자와 비밀번호 확인
-
-        // 삭제
-        service.deleteNego(itemId, proposalId);
+    public responseDto delete(@PathVariable("itemId") Long itemId,
+                              @PathVariable("proposalId") Long proposalId,
+                              @RequestBody Map<String, String> user // 작성자, 비밀번호 확인용
+                              ) {
+        // 삭제(작성자, 비밀번호 확인)
+        String writer = user.get("writer");
+        String password = user.get("password");
+        service.deleteNego(proposalId, writer, password);
         //메시지
         responseDto response = new responseDto();
         response.setMessage("제안을 삭제했습니다.");
