@@ -1,4 +1,4 @@
-package com.example.Miniproject_Market.dto;
+package com.example.Miniproject_Market.dto.commentDto;
 
 import com.example.Miniproject_Market.Entity.commentEntity;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.example.Miniproject_Market.controller;
 
-import com.example.Miniproject_Market.dto.commentDto;
+import com.example.Miniproject_Market.dto.commentDto.commentDto;
 import com.example.Miniproject_Market.dto.responseDto;
 import com.example.Miniproject_Market.service.commentService;
 import lombok.RequiredArgsConstructor;

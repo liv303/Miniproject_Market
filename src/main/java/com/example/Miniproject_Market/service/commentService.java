@@ -1,14 +1,12 @@
 package com.example.Miniproject_Market.service;
 
 import com.example.Miniproject_Market.Entity.commentEntity;
-import com.example.Miniproject_Market.dto.commentDto;
+import com.example.Miniproject_Market.dto.commentDto.commentDto;
 import com.example.Miniproject_Market.repository.commentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.yaml.snakeyaml.events.CommentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
