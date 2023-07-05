@@ -1,7 +1,7 @@
 package com.example.Miniproject_Market.service;
 
 import com.example.Miniproject_Market.Entity.itemEntity;
-import com.example.Miniproject_Market.dto.*;
+import com.example.Miniproject_Market.dto.itemDto.*;
 import com.example.Miniproject_Market.repository.itemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -92,6 +92,5 @@ public class salesService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
-
 
 }

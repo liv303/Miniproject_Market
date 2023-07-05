@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "16951f16-923c-4afe-89dd-10fa1cbf9660",
+		"name": "230704_Miniporject_Basic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28055560"
+	},
+	"item": [
+		{
+			"name": "POST /items/{itemId}/proposal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"writer\": \"jeeho.edu\",\r\n    \"password\": \"qwerty1234\",\r\n    \"suggestedPrice\": 1000000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/items/proposal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"proposal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /items/{itemId}/proposals?writer=jeeho.edu&password=qwerty1234&page=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/items/1/proposals?writer=jeeho.edu&password=qwerty1234&page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"1",
+						"proposals"
+					],
+					"query": [
+						{
+							"key": "writer",
+							"value": "jeeho.edu"
+						},
+						{
+							"key": "password",
+							"value": "qwerty1234"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /items/{itemId}/proposals/{proposalId}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"writer\": \"jeeho.edu\",\r\n    \"password\": \"qwerty1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/items/1/proposals/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"1",
+						"proposals",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

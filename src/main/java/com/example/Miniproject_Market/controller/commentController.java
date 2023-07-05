@@ -42,6 +42,7 @@ public class commentController {
     }
 
 
+    // TODO 답글 기능 추가(comment 테이블의 reply 변경)
     // PUT /items/{itemId}/comments/{commentId}/reply
     @PutMapping("/{commentId}/reply")
     public void reply() {

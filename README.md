@@ -10,6 +10,16 @@ MiniProject_Basic_Leesiyun
 #### - 문의 : livre303@gmail.com
 
 ----------------------------------
+### 사용 방법
+ resources 패키지 안에 있는 다음의 파일들을 다운로드 하세요.
+
+ - Postman Collection(1)_Leesiyun_SalesItem.json
+ - Postman Collection(2)_Leesiyun_Comment.json
+ - Postman Collection(3)_Leesiyun_Negotiation.json
+ 
+ POSTMAN에 import하신 후 테스트하실 수 있습니다.
+
+----------------------------------
 ### 멋사마켓 기능
 - 판매글 생성/조회/수정/삭제
    - 판매 게시글을 등록할 수 있습니다.
